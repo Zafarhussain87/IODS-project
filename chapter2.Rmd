@@ -1,7 +1,24 @@
-# Insert chapter 2 title here
+# Data Wrangling and Analysis
 
-*Describe the work you have done this week and summarize your learning.*
+*In this chapter, we tried to learn how to clean up the data and how to make it ready for the anaysis phase.*
 
-- Describe your work and results clearly. 
-- Assume the reader has an introductory course level understanding of writing and reading R code as well as statistical methods
-- Assume the reader has no previous knowledge of your data or the more advanced methods you are using  
+**Data Wrangling:**
+
+I read the data from the given URL into csv format. 
+I checked its structure and dimensions and matched them with the information given in the start of the exercise.
+Then i added deep, strategic, and surface learning columns by combining different columns related to the mentioned categories. 
+Then i created a new dataset with the 7 variables as instructed and saved in a csv and tabular form in my local directory.
+
+**Data Analysis:**
+
+For this phase i read the newly created dataset from my local directory.
+I created pairs plots to check and understand the correlations between variables. 
+After that i plotted some simple results to check the relationships between attitude of students and their deep learning, age and their strategic learning , points and their attitude. I had to understand the relationship of these variables and compare them with each other for better understanding. 
+Then i tried to fit linear models on the same variables and extracted their summaries.
+
+In the last, as suggested, i made some plots to compare the Residulas and fitted models difference, normal Q-Q plots and Residuals and Leverage. 
+
+The results indicate that there are few variables which are highly correlated with some other variables. Like attitude is correlated with Points or we can say that Points are dependent on attitude. Similarly, Points and deep are correlated. 
+Gender and age does not show any kind of strong correlation with other variabels. 
+
+
