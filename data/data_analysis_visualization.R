@@ -43,7 +43,7 @@ summary(learning_data$attitude)
 summary(learning_data$deep)
 
 
-#Shows the relationship between attitude and age parameters. The results can also been seen from the summary of both variables.
+#Shows the relationship between starategic learning and age parameters. The results can also been seen from the summary of both variables.
 plot3 <- ggplot(learning_data, aes(x = Age, y = stra, col = gender))
 plot3 <- plot3 + geom_point() + stat_smooth(method=lm)
 plot3
@@ -53,8 +53,6 @@ plot3
 summary(learning_data$Points)
 summary(learning_data$stra)
 
-summary(learning_data$Points)
-summary(learning_data$gender)
 
 library(ggfortify)
 #Question 3 and 4 
@@ -88,6 +86,7 @@ summary(lm4)
 with(learning_data, plot(deep+surf+stra, Points))
 abline(lm4)
 
+
 #Question 5 
 mod1 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod1, which = 1, size = 3, smooth.linetype = "blank") + ggtitle("Residuals vs Fitted Values")
@@ -101,7 +100,5 @@ autoplot(mod3, which = 5, size = 3, smooth.linetype = "blank") + ggtitle("Residu
 
 lm_fit <- lm(learning_data$Points~learning_data$attitude, data = learning_data)
 autoplot(lm_fit, which = c(1,2,5), smooth.linetype = "blank")
-
-
 
 
