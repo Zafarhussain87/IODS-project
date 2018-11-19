@@ -65,3 +65,39 @@ Similarly the graphs show that both Male and Female students with high usage of 
 Students with high usage of alcohol has high absent rate also. 
 The age factor is surprising. Male students who are touching the age of 18 has higher alcohol usage as compared to Female students. Female students with high usage of alcohol have on average age of 17.
 The last graph result shows that the Male students who have higher rate of Goout, also has higher rate of alcohol consumption. 
+
+Now fitting the Regression Model on the above mentioned variables.
+
+```{r}
+rm <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+summary(rm)
+coef(rm)
+
+```
+Summary and Coefficients are dervied above. Now computing Odd Ratios and Confidence Intervals.
+```{r}
+OR <- coef(rm) %>% exp()
+
+CI <- confint(rm) %>% exp()
+
+cbind(OR, CI)
+```
+Now fitting the model again and predicting the high use of alcohol for the mentioned variables.
+
+```{r}
+rm3 <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+
+probabilities <- predict(rm3, type = "response")
+
+alc <- mutate(alc, probability = probabilities)
+
+alc <- mutate(alc, prediction = ifelse (probability > 0.5, TRUE, FALSE))
+
+select(alc, failures, absences, sex, high_use, probability, prediction) %>% head(10)
+
+
+table(high_use = alc$high_use, prediction = alc$prediction)
+```
+

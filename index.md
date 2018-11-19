@@ -253,4 +253,114 @@ Students with high usage of alcohol has high absent rate also.
 The age factor is surprising. Male students who are touching the age of 18 has higher alcohol usage as compared to Female students. Female students with high usage of alcohol have on average age of 17.
 The last graph result shows that the Male students who have higher rate of Goout, also has higher rate of alcohol consumption. 
 
+Now fitting the Regression Model on the above mentioned variables.
+
+
+```r
+rm <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+summary(rm)
+```
+
+```
+## 
+## Call:
+## glm(formula = high_use ~ failures + absences + sex, family = "binomial", 
+##     data = alc)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1855  -0.8371  -0.6000   1.1020   2.0209  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -1.90297    0.22626  -8.411  < 2e-16 ***
+## failures     0.45082    0.18992   2.374 0.017611 *  
+## absences     0.09322    0.02295   4.063 4.85e-05 ***
+## sexM         0.94117    0.24200   3.889 0.000101 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 465.68  on 381  degrees of freedom
+## Residual deviance: 424.40  on 378  degrees of freedom
+## AIC: 432.4
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+```r
+coef(rm)
+```
+
+```
+## (Intercept)    failures    absences        sexM 
+## -1.90296550  0.45081981  0.09321999  0.94116602
+```
+Summary and Coefficients are dervied above. Now computing Odd Ratios and Confidence Intervals.
+
+```r
+OR <- coef(rm) %>% exp()
+
+CI <- confint(rm) %>% exp()
+```
+
+```
+## Waiting for profiling to be done...
+```
+
+```r
+cbind(OR, CI)
+```
+
+```
+##                    OR      2.5 %   97.5 %
+## (Intercept) 0.1491257 0.09395441 0.228611
+## failures    1.5695984 1.08339644 2.294737
+## absences    1.0977032 1.05169654 1.150848
+## sexM        2.5629682 1.60381392 4.149405
+```
+Now fitting the model again and predicting the high use of alcohol for the mentioned variables.
+
+
+```r
+rm3 <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+
+probabilities <- predict(rm3, type = "response")
+
+alc <- mutate(alc, probability = probabilities)
+
+alc <- mutate(alc, prediction = ifelse (probability > 0.5, TRUE, FALSE))
+
+select(alc, failures, absences, sex, high_use, probability, prediction) %>% head(10)
+```
+
+```
+##    failures absences sex high_use probability prediction
+## 1         0        5   F    FALSE   0.1920312      FALSE
+## 2         0        3   F    FALSE   0.1647495      FALSE
+## 3         2        8   F     TRUE   0.4364540      FALSE
+## 4         0        1   F    FALSE   0.1406689      FALSE
+## 5         0        2   F    FALSE   0.1523192      FALSE
+## 6         0        8   M    FALSE   0.4461992      FALSE
+## 7         0        0   M    FALSE   0.2765181      FALSE
+## 8         0        4   F    FALSE   0.1779812      FALSE
+## 9         0        0   M    FALSE   0.2765181      FALSE
+## 10        0        0   M    FALSE   0.2765181      FALSE
+```
+
+```r
+table(high_use = alc$high_use, prediction = alc$prediction)
+```
+
+```
+##         prediction
+## high_use FALSE TRUE
+##    FALSE   259    9
+##    TRUE     84   30
+```
+
+
 ***
