@@ -361,7 +361,7 @@ table(high_use = alc$high_use, prediction = alc$prediction)
 ##    FALSE   259    9
 ##    TRUE     84   30
 ```
-Plotting the high use and above calculated probability against the predicted values
+Plotting the high use and above calculated probability against the predicted values of the model. 
 
 ```r
 g <- ggplot(alc, aes(x = probability, y = high_use, col= prediction))
@@ -370,6 +370,5 @@ g + geom_point()
 ```
 
 ![](index_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
-
 
 ***
