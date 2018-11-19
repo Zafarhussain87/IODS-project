@@ -597,7 +597,7 @@ select(alc, failures, absences, sex, high_use, probability, prediction) %&gt;% h
 ## high_use FALSE TRUE
 ##    FALSE   259    9
 ##    TRUE     84   30</code></pre>
-<p>Plotting the high use and above calculated probability against the predicted values</p>
+<p>Plotting the high use and above calculated probability against the predicted values of the model.</p>
 <pre class="r"><code>g &lt;- ggplot(alc, aes(x = probability, y = high_use, col= prediction))
 
 g + geom_point()</code></pre>
