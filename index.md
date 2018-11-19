@@ -370,5 +370,4 @@ g + geom_point()
 ```
 
 ![](index_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
-
 ***

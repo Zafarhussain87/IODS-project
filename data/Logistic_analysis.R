@@ -48,11 +48,63 @@ plot3 + geom_boxplot() + ggtitle("Student age by alcohol consumption and sex")
 plot4 <- ggplot(alc, aes(x = high_use, y = goout, col= sex))
 plot4 + geom_boxplot()
 
-''' The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
-If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 
-The important and interesting aspect of the finding was the relationship of alcohol high use and failures. I calculated mean of failures and the results show that the Female students with high alcohol use have mean of 0.286 failures and Male students have mean of 0.375. These numbers are alot higher than the mean failures of those students who do not have high usage of alcohol. 
+#Regression Model
 
-Similarly the graphs show that both Male and Female students with high usage of alcohol has low grades. 
-Students with high usage of alcohol has high absent rate also. 
-The age factor is surprising. Male students who are touching the age of 18 has higher alcohol usage as compared to Female students. Female students with high usage of alcohol have on average age of 17.
-The last graph result shows that the Male students who have higher rate of Goout, also has higher rate of alcohol consumption. 
+
+rm <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+summary(rm)
+
+# print out the coefficients of the model
+coef(rm)
+
+
+# alc and dlyr are available 
+
+# find the model with glm()
+rm2 <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+# compute odds ratios (OR)
+OR <- coef(rm2) %>% exp()
+
+# compute confidence intervals (CI)
+CI <- confint(rm2) %>% exp()
+
+# print out the odds ratios with their confidence intervals
+cbind(OR, CI)
+
+
+# alc, dplyr are available
+
+# fit the model
+rm3 <- glm(high_use ~ failures + absences + sex, data = alc, family = "binomial")
+
+# predict() the probability of high_use
+probabilities <- predict(rm3, type = "response")
+
+# add the predicted probabilities to 'alc'
+alc <- mutate(alc, probability = probabilities)
+
+# use the probabilities to make a prediction of high_use
+alc <- mutate(alc, prediction = ifelse (probability > 0.5, TRUE, FALSE))
+
+# see the last ten original classes, predicted probabilities, and class predictions
+select(alc, failures, absences, sex, high_use, probability, prediction) %>% tail(10)
+
+# tabulate the target variable versus the predictions
+table(high_use = alc$high_use, prediction = alc$prediction)
+
+
+# alc is available
+
+# initialize a plot of 'high_use' versus 'probability' in 'alc'
+g <- ggplot(alc, aes(x = probability, y = high_use, col= prediction))
+
+# define the geom as points and draw the plot
+g + geom_point()
+
+# tabulate the target variable versus the predictions and see the relationship.
+table(high_use = alc$high_use, prediction = alc$prediction) %>% prop.table() %>%addmargins()
+
+
+
