@@ -92,7 +92,7 @@ library(ggplot2)
 pairs(learning_data)
 ```
 
-![](index_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
 
 
 I had to understand the relationship of these variables and compare them with each other for better understanding. 
@@ -104,7 +104,7 @@ plot1 <- plot1 + geom_point() +stat_smooth(method = lm)
 plot1
 ```
 
-![](index_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 ```r
 plot2 <- ggplot(learning_data, aes(attitude, deep, col = gender))
@@ -112,7 +112,7 @@ plot2 <- plot2 + geom_point()  +stat_smooth(method = lm)
 plot2
 ```
 
-![](index_files/figure-html/unnamed-chunk-5-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
 
 ```r
 summary(learning_data$attitude)
@@ -138,7 +138,7 @@ plot3 <- plot3 + geom_point() + stat_smooth(method=lm)
 plot3
 ```
 
-![](index_files/figure-html/unnamed-chunk-5-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-6-3.png)<!-- -->
 
 In the last, as suggested, i made some plots to compare the Residulas and fitted models difference, normal Q-Q plots and Residuals and Leverage. 
 
@@ -149,27 +149,218 @@ mod1 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod1, which = 1, size = 3, smooth.linetype = "blank") + ggtitle("Residuals vs Fitted Values")
 ```
 
-![](index_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 mod2 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod2, which = 2, size = 3, smooth.linetype = "blank") + ggtitle("Normal Q-Q Plot")
 ```
 
-![](index_files/figure-html/unnamed-chunk-6-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
 ```r
 mod3 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod3, which = 5, size = 3, smooth.linetype = "blank") + ggtitle("Residuals vs Leverage")
 ```
 
-![](index_files/figure-html/unnamed-chunk-6-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-7-3.png)<!-- -->
 
 The results indicate that there are few variables which are highly correlated with some other variables. Like attitude is correlated with Points or we can say that Points are dependent on attitude. Similarly, Points and deep are correlated. 
 Gender and age does not show any kind of strong correlation with other variabels. 
 
-
-
 ***
+  
 
+#Logistic Regression
+
+The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por).
+
+The variables are school names, student's gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother's and father's education and jobs, student's guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures 
+extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
+
+
+
+
+```r
+alc <- read.csv("D:/Study Material/Introduction to Open Data Science/IODS-project/data/student_alc_consumption.csv")
+
+dim(alc)
+```
+
+```
+## [1] 382  35
+```
+
+```r
+colnames(alc)
+```
+
+```
+##  [1] "school"     "sex"        "age"        "address"    "famsize"   
+##  [6] "Pstatus"    "Medu"       "Fedu"       "Mjob"       "Fjob"      
+## [11] "reason"     "nursery"    "internet"   "guardian"   "traveltime"
+## [16] "studytime"  "failures"   "schoolsup"  "famsup"     "paid"      
+## [21] "activities" "higher"     "romantic"   "famrel"     "freetime"  
+## [26] "goout"      "Dalc"       "Walc"       "health"     "absences"  
+## [31] "G1"         "G2"         "G3"         "alc_use"    "high_use"
+```
+
+
+
+The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por).
+
+The variables are school names, student's gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother's and father's education and jobs, student's guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures 
+extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
+
+Studying alocohal consumption and its relationship with other variables such as sex, grades, average past failures, average age of both genders, and absences.
+
+
+```r
+library(tidyr); library(dplyr); library(ggplot2)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+gather(alc) %>% glimpse
+```
+
+```
+## Warning: attributes are not identical across measure variables;
+## they will be dropped
+```
+
+```
+## Observations: 13,370
+## Variables: 2
+## $ key   <chr> "school", "school", "school", "school", "school", "schoo...
+## $ value <chr> "GP", "GP", "GP", "GP", "GP", "GP", "GP", "GP", "GP", "G...
+```
+
+```r
+gather(alc) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
+```
+
+```
+## Warning: attributes are not identical across measure variables;
+## they will be dropped
+```
+
+![](index_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+
+```r
+alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean_grade = mean(G3))
+```
+
+```
+## # A tibble: 4 x 4
+## # Groups:   sex [?]
+##   sex   high_use count mean_grade
+##   <fct> <lgl>    <int>      <dbl>
+## 1 F     FALSE      156       11.4
+## 2 F     TRUE        42       11.7
+## 3 M     FALSE      112       12.2
+## 4 M     TRUE        72       10.3
+```
+
+```r
+alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_failures = mean(failures))
+```
+
+```
+## # A tibble: 4 x 4
+## # Groups:   sex [?]
+##   sex   high_use count average_failures
+##   <fct> <lgl>    <int>            <dbl>
+## 1 F     FALSE      156            0.115
+## 2 F     TRUE        42            0.286
+## 3 M     FALSE      112            0.179
+## 4 M     TRUE        72            0.375
+```
+
+```r
+alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_age = mean(age))
+```
+
+```
+## # A tibble: 4 x 4
+## # Groups:   sex [?]
+##   sex   high_use count average_age
+##   <fct> <lgl>    <int>       <dbl>
+## 1 F     FALSE      156        16.6
+## 2 F     TRUE        42        16.5
+## 3 M     FALSE      112        16.3
+## 4 M     TRUE        72        17.0
+```
+
+```r
+alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_failures = mean(absences))
+```
+
+```
+## # A tibble: 4 x 4
+## # Groups:   sex [?]
+##   sex   high_use count average_failures
+##   <fct> <lgl>    <int>            <dbl>
+## 1 F     FALSE      156             4.22
+## 2 F     TRUE        42             6.79
+## 3 M     FALSE      112             2.98
+## 4 M     TRUE        72             6.12
+```
+
+```r
+library(ggplot2)
+
+plot1 <- ggplot(alc, aes(x = high_use, y = G3, col= sex))
+
+plot1 + geom_boxplot() + ylab("grade") + ggtitle("Student grades by alcohol consumption and sex")
+```
+
+![](index_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+
+```r
+plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
+
+plot2 + geom_boxplot() + ggtitle("Student absences by alcohol consumption and sex")
+```
+
+![](index_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+
+```r
+plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
+
+plot3 + geom_boxplot() + ggtitle("Student age by alcohol consumption and sex")
+```
+
+![](index_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+
+```r
+plot4 <- ggplot(alc, aes(x = high_use, y = goout, col= sex))
+plot4 + geom_boxplot()
+```
+
+![](index_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
+The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
+If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 
+The important and interesting aspect of the finding was the relationship of alcohol high use and failures. I calculated mean of failures and the results show that the Female students with high alcohol use have mean of 0.286 failures and Male students have mean of 0.375. These numbers are alot higher than the mean failures of those students who do not have high usage of alcohol. 
+
+Similarly the graphs show that both Male and Female students with high usage of alcohol has low grades. 
+Students with high usage of alcohol has high absent rate also. 
+The age factor is surprising. Male students who are touching the age of 18 has higher alcohol usage as compared to Female students. Female students with high usage of alcohol have on average age of 17.
+The last graph result shows that the Male students who have higher rate of Goout, also has higher rate of alcohol consumption. 
 
