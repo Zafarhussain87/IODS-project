@@ -205,7 +205,6 @@ colnames(alc)
 ```
 
 
-
 The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por).
 The variables are school names, student's gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother's and father's education and jobs, student's guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures 
 extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
@@ -213,7 +212,7 @@ Studying alocohal consumption and its relationship with other variables such as 
 
 
 ```r
-library(tidyr); library(dplyr); library(ggplot2)
+library(tidyr); library(dplyr); library(ggplot2);
 ```
 
 ```
@@ -232,33 +231,6 @@ library(tidyr); library(dplyr); library(ggplot2)
 ## 
 ##     intersect, setdiff, setequal, union
 ```
-
-```r
-gather(alc) %>% glimpse
-```
-
-```
-## Warning: attributes are not identical across measure variables;
-## they will be dropped
-```
-
-```
-## Observations: 13,370
-## Variables: 2
-## $ key   <chr> "school", "school", "school", "school", "school", "schoo...
-## $ value <chr> "GP", "GP", "GP", "GP", "GP", "GP", "GP", "GP", "GP", "G...
-```
-
-```r
-gather(alc) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
-```
-
-```
-## Warning: attributes are not identical across measure variables;
-## they will be dropped
-```
-
-![](index_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ```r
 alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean_grade = mean(G3))
@@ -328,7 +300,7 @@ plot1 <- ggplot(alc, aes(x = high_use, y = G3, col= sex))
 plot1 + geom_boxplot() + ylab("grade") + ggtitle("Student grades by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 ```r
 plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
@@ -336,7 +308,7 @@ plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
 plot2 + geom_boxplot() + ggtitle("Student absences by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
 
 ```r
 plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
@@ -344,14 +316,14 @@ plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
 plot3 + geom_boxplot() + ggtitle("Student age by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
 
 ```r
 plot4 <- ggplot(alc, aes(x = high_use, y = goout, col= sex))
 plot4 + geom_boxplot()
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
 
 The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
 If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 

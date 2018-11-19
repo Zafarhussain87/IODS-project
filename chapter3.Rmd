@@ -16,19 +16,13 @@ colnames(alc)
 ```
 
 
-
 The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por).
 The variables are school names, student's gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother's and father's education and jobs, student's guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures 
 extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
 Studying alocohal consumption and its relationship with other variables such as sex, grades, average past failures, average age of both genders, and absences.
 
 ```{r}
-library(tidyr); library(dplyr); library(ggplot2)
-
-gather(alc) %>% glimpse
-
-gather(alc) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") + geom_bar()
-
+library(tidyr); library(dplyr); library(ggplot2);
 
 alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean_grade = mean(G3))
 
