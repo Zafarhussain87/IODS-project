@@ -21,8 +21,10 @@ The variables are school names, student's gender, age their addresses, family si
 extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
 Studying alocohal consumption and its relationship with other variables such as sex, grades, average past failures, average age of both genders, and absences.
 
-```{r}
-library(tidyr); library(dplyr); library(ggplot2);
+```{r include=FALSE}
+library(tidyr) 
+library(dplyr) 
+library(ggplot2)
 
 alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean_grade = mean(G3))
 
@@ -33,6 +35,8 @@ alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_age = mean(ag
 
 alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_failures = mean(absences))
 
+```
+```{r}
 
 library(ggplot2)
 
@@ -51,6 +55,7 @@ plot3 + geom_boxplot() + ggtitle("Student age by alcohol consumption and sex")
 
 plot4 <- ggplot(alc, aes(x = high_use, y = goout, col= sex))
 plot4 + geom_boxplot()
+
 ```
 
 The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 

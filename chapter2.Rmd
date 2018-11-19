@@ -1,4 +1,4 @@
-# Data Wrangling and Analysis
+# Regression and Model Validation
 
 *In this chapter, we tried to learn how to clean up the data and how to make it ready for the anaysis phase.*
 

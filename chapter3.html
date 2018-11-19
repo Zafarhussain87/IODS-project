@@ -325,51 +325,6 @@ dim(alc)</code></pre>
 ## [26] &quot;goout&quot;      &quot;Dalc&quot;       &quot;Walc&quot;       &quot;health&quot;     &quot;absences&quot;  
 ## [31] &quot;G1&quot;         &quot;G2&quot;         &quot;G3&quot;         &quot;alc_use&quot;    &quot;high_use&quot;</code></pre>
 <p>The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por). The variables are school names, student’s gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother’s and father’s education and jobs, student’s guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status. Studying alocohal consumption and its relationship with other variables such as sex, grades, average past failures, average age of both genders, and absences.</p>
-<pre class="r"><code>library(tidyr); library(dplyr); library(ggplot2);</code></pre>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>alc %&gt;% group_by(sex, high_use) %&gt;% summarise(count = n(), mean_grade = mean(G3))</code></pre>
-<pre><code>## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count mean_grade
-##   &lt;fct&gt; &lt;lgl&gt;    &lt;int&gt;      &lt;dbl&gt;
-## 1 F     FALSE      156       11.4
-## 2 F     TRUE        42       11.7
-## 3 M     FALSE      112       12.2
-## 4 M     TRUE        72       10.3</code></pre>
-<pre class="r"><code>alc %&gt;% group_by(sex, high_use) %&gt;% summarise(count = n(), average_failures = mean(failures))</code></pre>
-<pre><code>## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count average_failures
-##   &lt;fct&gt; &lt;lgl&gt;    &lt;int&gt;            &lt;dbl&gt;
-## 1 F     FALSE      156            0.115
-## 2 F     TRUE        42            0.286
-## 3 M     FALSE      112            0.179
-## 4 M     TRUE        72            0.375</code></pre>
-<pre class="r"><code>alc %&gt;% group_by(sex, high_use) %&gt;% summarise(count = n(), average_age = mean(age))</code></pre>
-<pre><code>## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count average_age
-##   &lt;fct&gt; &lt;lgl&gt;    &lt;int&gt;       &lt;dbl&gt;
-## 1 F     FALSE      156        16.6
-## 2 F     TRUE        42        16.5
-## 3 M     FALSE      112        16.3
-## 4 M     TRUE        72        17.0</code></pre>
-<pre class="r"><code>alc %&gt;% group_by(sex, high_use) %&gt;% summarise(count = n(), average_failures = mean(absences))</code></pre>
-<pre><code>## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count average_failures
-##   &lt;fct&gt; &lt;lgl&gt;    &lt;int&gt;            &lt;dbl&gt;
-## 1 F     FALSE      156             4.22
-## 2 F     TRUE        42             6.79
-## 3 M     FALSE      112             2.98
-## 4 M     TRUE        72             6.12</code></pre>
 <pre class="r"><code>library(ggplot2)
 
 plot1 &lt;- ggplot(alc, aes(x = high_use, y = G3, col= sex))

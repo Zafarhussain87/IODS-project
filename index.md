@@ -32,7 +32,7 @@ https://github.com/Zafarhussain87/IODS-project
 ***
   
 
-# Data Wrangling and Analysis
+# Regression and Model Validation
 
 *In this chapter, we tried to learn how to clean up the data and how to make it ready for the anaysis phase.*
 
@@ -211,86 +211,6 @@ extra educational support, family educational support, extra paid classes within
 Studying alocohal consumption and its relationship with other variables such as sex, grades, average past failures, average age of both genders, and absences.
 
 
-```r
-library(tidyr); library(dplyr); library(ggplot2);
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
-alc %>% group_by(sex, high_use) %>% summarise(count = n(), mean_grade = mean(G3))
-```
-
-```
-## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count mean_grade
-##   <fct> <lgl>    <int>      <dbl>
-## 1 F     FALSE      156       11.4
-## 2 F     TRUE        42       11.7
-## 3 M     FALSE      112       12.2
-## 4 M     TRUE        72       10.3
-```
-
-```r
-alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_failures = mean(failures))
-```
-
-```
-## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count average_failures
-##   <fct> <lgl>    <int>            <dbl>
-## 1 F     FALSE      156            0.115
-## 2 F     TRUE        42            0.286
-## 3 M     FALSE      112            0.179
-## 4 M     TRUE        72            0.375
-```
-
-```r
-alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_age = mean(age))
-```
-
-```
-## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count average_age
-##   <fct> <lgl>    <int>       <dbl>
-## 1 F     FALSE      156        16.6
-## 2 F     TRUE        42        16.5
-## 3 M     FALSE      112        16.3
-## 4 M     TRUE        72        17.0
-```
-
-```r
-alc %>% group_by(sex, high_use) %>% summarise(count = n(), average_failures = mean(absences))
-```
-
-```
-## # A tibble: 4 x 4
-## # Groups:   sex [?]
-##   sex   high_use count average_failures
-##   <fct> <lgl>    <int>            <dbl>
-## 1 F     FALSE      156             4.22
-## 2 F     TRUE        42             6.79
-## 3 M     FALSE      112             2.98
-## 4 M     TRUE        72             6.12
-```
 
 ```r
 library(ggplot2)
@@ -300,7 +220,7 @@ plot1 <- ggplot(alc, aes(x = high_use, y = G3, col= sex))
 plot1 + geom_boxplot() + ylab("grade") + ggtitle("Student grades by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
 
 ```r
 plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
@@ -308,7 +228,7 @@ plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
 plot2 + geom_boxplot() + ggtitle("Student absences by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-10-2.png)<!-- -->
 
 ```r
 plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
@@ -316,14 +236,14 @@ plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
 plot3 + geom_boxplot() + ggtitle("Student age by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-10-3.png)<!-- -->
 
 ```r
 plot4 <- ggplot(alc, aes(x = high_use, y = goout, col= sex))
 plot4 + geom_boxplot()
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-4.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-10-4.png)<!-- -->
 
 The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
 If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 
