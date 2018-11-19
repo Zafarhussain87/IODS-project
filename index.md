@@ -6,7 +6,7 @@ output:
     keep_md: true
     theme: cosmo
     toc: true
-    toc_depth: 2
+    toc_depth: 3
     fig_caption: true
     fig_width: 6
     fig_height: 4
@@ -355,6 +355,7 @@ plot4 + geom_boxplot()
 ```
 
 ![](index_files/figure-html/unnamed-chunk-9-5.png)<!-- -->
+
 The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
 If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 
 The important and interesting aspect of the finding was the relationship of alcohol high use and failures. I calculated mean of failures and the results show that the Female students with high alcohol use have mean of 0.286 failures and Male students have mean of 0.375. These numbers are alot higher than the mean failures of those students who do not have high usage of alcohol. 
