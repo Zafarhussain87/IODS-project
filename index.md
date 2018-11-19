@@ -171,10 +171,9 @@ Gender and age does not show any kind of strong correlation with other variabels
 ***
   
 
-#Logistic Regression
+# Logistic Regression
 
 The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por).
-
 The variables are school names, student's gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother's and father's education and jobs, student's guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures 
 extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
 
@@ -208,10 +207,8 @@ colnames(alc)
 
 
 The data attributes include student grades, demographic, social and school related features and it was collected by using school reports and questionnaires. Two datasets are provided regarding the performance in two distinct subjects: Mathematics (mat) and Portuguese language (por).
-
 The variables are school names, student's gender, age their addresses, family size, cohabitation status of their parents either living together or apart, mother's and father's education and jobs, student's guardian, home to school travel time and their weekly study time. The data also contains information about number of past class failures 
 extra educational support, family educational support, extra paid classes within the course subject (Math or Portuguese), extra-curricular activities, attended nursery school, Internet access at home, quality of family relationships,free time after school, going out with friends, workday alcohol consumption, weekend alcohol consumption and current health status.
-
 Studying alocohal consumption and its relationship with other variables such as sex, grades, average past failures, average age of both genders, and absences.
 
 
@@ -359,9 +356,9 @@ plot4 + geom_boxplot()
 The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
 If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 
 The important and interesting aspect of the finding was the relationship of alcohol high use and failures. I calculated mean of failures and the results show that the Female students with high alcohol use have mean of 0.286 failures and Male students have mean of 0.375. These numbers are alot higher than the mean failures of those students who do not have high usage of alcohol. 
-
 Similarly the graphs show that both Male and Female students with high usage of alcohol has low grades. 
 Students with high usage of alcohol has high absent rate also. 
 The age factor is surprising. Male students who are touching the age of 18 has higher alcohol usage as compared to Female students. Female students with high usage of alcohol have on average age of 17.
 The last graph result shows that the Male students who have higher rate of Goout, also has higher rate of alcohol consumption. 
 
+***
