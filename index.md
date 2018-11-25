@@ -6,11 +6,11 @@ output:
     keep_md: true
     theme: cosmo
     toc: true
-    toc_depth: 2
+    toc_depth: 6
     fig_caption: true
     fig_width: 6
     fig_height: 4
-    code_folding: hide
+  
 ---
 
 ***
@@ -369,6 +369,7 @@ g + geom_point()
 ```
 
 ![](index_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+
 ***
 
 
@@ -378,7 +379,10 @@ Loading Boston data and reading its summary, structure and creating a pair plot 
 
 
 
+
+
 ```r
+#Structure of the dataset
 str(Boston)
 ```
 
@@ -401,6 +405,7 @@ str(Boston)
 ```
 
 ```r
+#Summary of the dataset
 summary(Boston)
 ```
 
@@ -443,6 +448,8 @@ pairs(Boston)
 ![](index_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 Now finding the correlation between different variables of the loaded data. 
+
+
 
 
 ```r
@@ -489,7 +496,10 @@ corrplot(cor_matrix, method="circle")
 ```
 
 ![](index_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+
 Now scaling the dataset and converting it into data frame to perform comparisons and predictions on the dataset.
+
+
 
 
 ```r
@@ -528,7 +538,10 @@ summary(boston_scaled)
 ##  Max.   : 0.4406   Max.   : 3.5453   Max.   : 2.9865
 ```
 
+
+
 AFter scaling the dataset, next task was to see the summary of the crime variable and then convert the crime variable into quantiles. 
+
 
 ```r
 summary(boston_scaled$crim)
@@ -548,7 +561,10 @@ bins
 ##           0%          25%          50%          75%         100% 
 ## -0.419366929 -0.410563278 -0.390280295  0.007389247  9.924109610
 ```
+
 Then created a categorical variable and named it 'crime'. 
+
+
 
 
 ```r
@@ -563,7 +579,9 @@ table(crime)
 ```
 
 
+
 Now as we have created a categorical variable crime and scaled our dataset, we can train our data and then run Linear Data Analysis for the prediction of crime. We have used 80, 20 percent of the data for training and testing respectively. 
+
 
 
 
@@ -578,45 +596,47 @@ lda.fit
 ## 
 ## Prior probabilities of groups:
 ##       low   med_low  med_high      high 
-## 0.2475248 0.2549505 0.2549505 0.2425743 
+## 0.2376238 0.2623762 0.2376238 0.2623762 
 ## 
 ## Group means:
-##                   zn      indus        chas        nox         rm
-## low       0.82694405 -0.9106060 -0.11484506 -0.8626947  0.4497124
-## med_low  -0.09114703 -0.2703705 -0.04298342 -0.5547020 -0.1184247
-## med_high -0.38566716  0.1829165  0.26281077  0.3914748  0.1360055
-## high     -0.48724019  1.0171960 -0.07145661  1.0515913 -0.4487765
+##                  zn      indus        chas        nox         rm
+## low       1.0534336 -0.9111241 -0.10828322 -0.8948846  0.3923886
+## med_low  -0.1276385 -0.2642179 -0.01233188 -0.5346217 -0.1240140
+## med_high -0.3880868  0.1304434  0.21980846  0.3679593  0.2272471
+## high     -0.4872402  1.0170298 -0.04947434  1.0706902 -0.4275289
 ##                 age        dis        rad        tax     ptratio
-## low      -0.8109707  0.8380557 -0.7004968 -0.7359634 -0.41965656
-## med_low  -0.3154915  0.3469365 -0.5525898 -0.4596047 -0.05838825
-## med_high  0.4056744 -0.3688740 -0.3786473 -0.2865565 -0.27185132
-## high      0.8108711 -0.8568305  1.6373367  1.5134896  0.77985517
-##                black       lstat         medv
-## low       0.37908012 -0.74150926  0.513878459
-## med_low   0.32237532 -0.12345601 -0.000400138
-## med_high  0.08172013  0.02299634  0.197847153
-## high     -0.63364821  0.93449178 -0.705984225
+## low      -0.9450096  0.9576817 -0.6744170 -0.7339362 -0.40094939
+## med_low  -0.2942374  0.2858027 -0.5506543 -0.4879468 -0.09973043
+## med_high  0.4378913 -0.3780895 -0.4112267 -0.3251489 -0.37929758
+## high      0.7966945 -0.8503277  1.6390172  1.5146914  0.78181164
+##               black       lstat         medv
+## low       0.3688258 -0.75781519  0.481073749
+## med_low   0.3217392 -0.12261628  0.002792644
+## med_high  0.1240489 -0.05479471  0.281282599
+## high     -0.7869046  0.85892481 -0.641072865
 ## 
 ## Coefficients of linear discriminants:
-##                 LD1          LD2         LD3
-## zn       0.09312209  0.626082670 -0.93576846
-## indus   -0.01585768 -0.320660982  0.44777182
-## chas    -0.08562251 -0.087996918  0.04060358
-## nox      0.39035133 -0.797713342 -1.35578147
-## rm      -0.10319776 -0.094089624 -0.16390942
-## age      0.30690097 -0.290095857 -0.08609779
-## dis     -0.07117855 -0.234179921  0.16145702
-## rad      2.99972498  0.787742401 -0.13466925
-## tax     -0.01023523  0.179445205  0.48000837
-## ptratio  0.11019148  0.007268156 -0.31132708
-## black   -0.12589787  0.019850050  0.11838850
-## lstat    0.19675048 -0.208600999  0.38476332
-## medv     0.17701180 -0.422059165 -0.20081026
+##                  LD1         LD2         LD3
+## zn       0.098654693  0.85804847 -0.85725363
+## indus    0.062817615 -0.11078407  0.37547471
+## chas    -0.072796015 -0.08415114  0.03122251
+## nox      0.362640626 -0.52571594 -1.52129482
+## rm      -0.114015549 -0.15435177 -0.14287551
+## age      0.245943384 -0.36370396 -0.14655111
+## dis     -0.045271819 -0.17022854  0.01260855
+## rad      3.443068448  0.96592269  0.12350232
+## tax     -0.004999906 -0.20177199  0.40948643
+## ptratio  0.096319395  0.15420475 -0.29842102
+## black   -0.125456940  0.02282818  0.16618032
+## lstat    0.233524445 -0.20981029  0.28655886
+## medv     0.220160364 -0.28117198 -0.30770925
 ## 
 ## Proportion of trace:
 ##    LD1    LD2    LD3 
-## 0.9481 0.0387 0.0132
+## 0.9506 0.0375 0.0119
 ```
+
+
 
 
 ```r
@@ -628,6 +648,8 @@ lda.arrows(lda.fit, myscale = 2)
 ![](index_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
+
+
 ```r
 # Comparing the results of correct classes and predicted classes, in tabular form.  
 table(correct =correct_classes , predicted = lda.pred$class)
@@ -636,10 +658,10 @@ table(correct =correct_classes , predicted = lda.pred$class)
 ```
 ##           predicted
 ## correct    low med_low med_high high
-##   low       20       6        1    0
-##   med_low    6      14        3    0
-##   med_high   0       9       14    0
-##   high       0       0        0   29
+##   low       14      17        0    0
+##   med_low    4      15        1    0
+##   med_high   1      11       16    2
+##   high       0       0        0   21
 ```
 
 Our model shows pretty good results for the given data. The graph and the table are closely predicting the correct result.
@@ -672,6 +694,8 @@ summary(dist_man)
 ```
 
 
+
+
 ```r
 # plot the Boston dataset with clusters
 pairs(Boston[6:10], col = km$cluster)
@@ -680,12 +704,15 @@ pairs(Boston[6:10], col = km$cluster)
 ![](index_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
 
 
+
+
 ```r
 # visualize the results
 qplot(x = 1:k_max, y = twcss, geom = 'line')
 ```
 
 ![](index_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
+
 
 The thoery states that "When you plot the number of clusters and the total within cluster sum of squares (WCSS), the optimal number of clusters is when the total WCSS drops radically". Our result shows that when the number of clusters were two, WCSS drops exponentially. It means that in our case the optimal number of clusters are two. 
 
@@ -696,6 +723,7 @@ pairs(Boston, col = km$cluster)
 ```
 
 ![](index_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
+
 
 ***
 

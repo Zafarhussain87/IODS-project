@@ -6,11 +6,11 @@ output:
     keep_md: true
     theme: cosmo
     toc: true
-    toc_depth: 2
+    toc_depth: 6
     fig_caption: true
     fig_width: 6
     fig_height: 4
-    code_folding: hide
+  
 ---
 
 ***
@@ -26,8 +26,11 @@ output:
 ***
 ```{r child = "chapter3.Rmd"}
 ```
+
 ***
+
 ```{r child = "chapter4.Rmd"}
 ```
+
 ***
 
