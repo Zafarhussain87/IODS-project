@@ -92,7 +92,7 @@ library(ggplot2)
 pairs(learning_data)
 ```
 
-![](index_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-6-1.png)<!-- -->
 
 
 I had to understand the relationship of these variables and compare them with each other for better understanding. 
@@ -104,7 +104,7 @@ plot1 <- plot1 + geom_point() +stat_smooth(method = lm)
 plot1
 ```
 
-![](index_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-7-1.png)<!-- -->
 
 ```r
 plot2 <- ggplot(learning_data, aes(attitude, deep, col = gender))
@@ -112,7 +112,7 @@ plot2 <- plot2 + geom_point()  +stat_smooth(method = lm)
 plot2
 ```
 
-![](index_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-7-2.png)<!-- -->
 
 ```r
 summary(learning_data$attitude)
@@ -138,7 +138,7 @@ plot3 <- plot3 + geom_point() + stat_smooth(method=lm)
 plot3
 ```
 
-![](index_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-7-3.png)<!-- -->
 
 In the last, as suggested, i made some plots to compare the Residulas and fitted models difference, normal Q-Q plots and Residuals and Leverage. 
 
@@ -149,21 +149,21 @@ mod1 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod1, which = 1, size = 3, smooth.linetype = "blank") + ggtitle("Residuals vs Fitted Values")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
 
 ```r
 mod2 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod2, which = 2, size = 3, smooth.linetype = "blank") + ggtitle("Normal Q-Q Plot")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-8-2.png)<!-- -->
 
 ```r
 mod3 <- lm(learning_data$Points ~ learning_data$attitude)
 autoplot(mod3, which = 5, size = 3, smooth.linetype = "blank") + ggtitle("Residuals vs Leverage")
 ```
 
-![](index_files/figure-html/unnamed-chunk-9-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-8-3.png)<!-- -->
 
 The results indicate that there are few variables which are highly correlated with some other variables. Like attitude is correlated with Points or we can say that Points are dependent on attitude. Similarly, Points and deep are correlated. 
 Gender and age does not show any kind of strong correlation with other variabels. 
@@ -219,7 +219,7 @@ plot1 <- ggplot(alc, aes(x = high_use, y = G3, col= sex))
 plot1 + geom_boxplot() + ylab("grade") + ggtitle("Student grades by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 ```r
 plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
@@ -227,7 +227,7 @@ plot2 <- ggplot(alc, aes(x = high_use, y = absences, col= sex))
 plot2 + geom_boxplot() + ggtitle("Student absences by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-12-2.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-11-2.png)<!-- -->
 
 ```r
 plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
@@ -235,14 +235,14 @@ plot3 <- ggplot(alc, aes(x = high_use, y = age, col= sex))
 plot3 + geom_boxplot() + ggtitle("Student age by alcohol consumption and sex")
 ```
 
-![](index_files/figure-html/unnamed-chunk-12-3.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-11-3.png)<!-- -->
 
 ```r
 plot4 <- ggplot(alc, aes(x = high_use, y = goout, col= sex))
 plot4 + geom_boxplot()
 ```
 
-![](index_files/figure-html/unnamed-chunk-12-4.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-11-4.png)<!-- -->
 
 The above numerical results and graphs show relationships between high usage of alcohol and different variables such as age, grades, absences and goout. 
 If we look at the numerical results of grades and alcohol consumption, we can see that the Male students who have high usage of alcohol have less grades on average. 
@@ -368,7 +368,7 @@ g <- ggplot(alc, aes(x = probability, y = high_use, col= prediction))
 g + geom_point()
 ```
 
-![](index_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ***
 
@@ -445,7 +445,7 @@ summary(Boston)
 pairs(Boston)
 ```
 
-![](index_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 Now finding the correlation between different variables of the loaded data. 
 
@@ -495,7 +495,7 @@ cor_matrix
 corrplot(cor_matrix, method="circle")
 ```
 
-![](index_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 Now scaling the dataset and converting it into data frame to perform comparisons and predictions on the dataset.
 
@@ -596,44 +596,44 @@ lda.fit
 ## 
 ## Prior probabilities of groups:
 ##       low   med_low  med_high      high 
-## 0.2425743 0.2475248 0.2425743 0.2673267 
+## 0.2450495 0.2425743 0.2326733 0.2797030 
 ## 
 ## Group means:
 ##                   zn      indus         chas        nox          rm
-## low       0.99420863 -0.9399087 -0.071456607 -0.8911857  0.45100810
-## med_low  -0.05053655 -0.2828395  0.003267949 -0.5608074 -0.15065728
-## med_high -0.39886078  0.1893841  0.129415854  0.4197674  0.05672422
-## high     -0.48724019  1.0169921 -0.017146645  1.0484343 -0.42592758
+## low       0.99960031 -0.8891687 -0.073485621 -0.8774675  0.46419803
+## med_low  -0.08253252 -0.2614911  0.008892378 -0.5583136 -0.14902257
+## med_high -0.39418768  0.2096425  0.230279473  0.3613187  0.05242357
+## high     -0.48724019  1.0169038 -0.063279498  1.0492800 -0.43843268
 ##                 age        dis        rad        tax     ptratio
-## low      -0.9041364  0.9119858 -0.7017859 -0.7408434 -0.48802799
-## med_low  -0.3883248  0.3979486 -0.5385629 -0.4697906 -0.09170374
-## med_high  0.4056639 -0.3742219 -0.4345915 -0.3044955 -0.17129286
-## high      0.8147197 -0.8460452  1.6393984  1.5149640  0.78225547
-##                black      lstat        medv
-## low       0.37983951 -0.7844546  0.52543711
-## med_low   0.30870924 -0.1137875 -0.02042016
-## med_high  0.05652853  0.0489263  0.10083584
-## high     -0.82471632  0.8562753 -0.65161723
+## low      -0.8818970  0.8860845 -0.6918543 -0.7357117 -0.49595493
+## med_low  -0.3532750  0.3683062 -0.5435787 -0.4677248 -0.04026256
+## med_high  0.3032356 -0.3555000 -0.3929764 -0.2966259 -0.28510451
+## high      0.8192337 -0.8583539  1.6402924  1.5156033  0.78329631
+##               black       lstat        medv
+## low       0.3686214 -0.77182490  0.53316319
+## med_low   0.3622088 -0.09845360 -0.02819767
+## med_high  0.0662794  0.02637139  0.18404985
+## high     -0.8364771  0.90328141 -0.69770626
 ## 
 ## Coefficients of linear discriminants:
-##                 LD1          LD2         LD3
-## zn       0.06993562  0.625692825 -0.96677901
-## indus    0.06071686 -0.178184874  0.49642972
-## chas    -0.08189753  0.002006544  0.13024386
-## nox      0.35234387 -0.890169701 -1.27011979
-## rm      -0.12162071 -0.116240159 -0.17300162
-## age      0.20137626 -0.257390943 -0.22231210
-## dis     -0.01462271 -0.221798940  0.27969333
-## rad      3.36874747  1.055870570  0.01421433
-## tax      0.03692686 -0.017600446  0.39186595
-## ptratio  0.12283802 -0.167557769 -0.35931894
-## black   -0.08792442  0.024605501  0.13561483
-## lstat    0.24220868 -0.294082191  0.41900066
-## medv     0.19351792 -0.459770063 -0.15472901
+##                  LD1           LD2         LD3
+## zn       0.123213410  0.9169147061 -0.82467206
+## indus    0.008695489 -0.2828293635  0.25359852
+## chas    -0.014206451 -0.0545556833  0.09216261
+## nox      0.420458826 -0.6215000285 -1.33265935
+## rm      -0.010821778 -0.0007037908 -0.13999472
+## age      0.250804165 -0.1470254698 -0.11304055
+## dis     -0.101677478 -0.3535646608  0.30918228
+## rad      3.160570249  0.9507767571 -0.04798614
+## tax      0.017271911 -0.1330704484  0.58538171
+## ptratio  0.138067621  0.0347413019 -0.11949594
+## black   -0.129237460  0.0260969461  0.19316265
+## lstat    0.168048510 -0.3109736947  0.40914333
+## medv     0.081389015 -0.4781421873 -0.23639914
 ## 
 ## Proportion of trace:
 ##    LD1    LD2    LD3 
-## 0.9542 0.0346 0.0112
+## 0.9562 0.0320 0.0118
 ```
 
 
@@ -645,7 +645,7 @@ plot(lda.fit, dimen = 2, col= classes, pch=classes)
 lda.arrows(lda.fit, myscale = 2)
 ```
 
-![](index_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
 
 
 
@@ -658,10 +658,10 @@ table(correct =correct_classes , predicted = lda.pred$class)
 ```
 ##           predicted
 ## correct    low med_low med_high high
-##   low       17       9        3    0
-##   med_low    5      16        5    0
-##   med_high   0       8       18    2
-##   high       0       0        0   19
+##   low       15      13        0    0
+##   med_low    4      20        4    0
+##   med_high   0      10       21    1
+##   high       0       0        0   14
 ```
 
 Our model shows pretty good results for the given data. The graph and the table are closely predicting the correct result.
@@ -701,7 +701,7 @@ summary(dist_man)
 pairs(Boston[6:10], col = km$cluster)
 ```
 
-![](index_files/figure-html/unnamed-chunk-37-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-36-1.png)<!-- -->
 
 
 
@@ -711,7 +711,7 @@ pairs(Boston[6:10], col = km$cluster)
 qplot(x = 1:k_max, y = twcss, geom = 'line')
 ```
 
-![](index_files/figure-html/unnamed-chunk-39-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-38-1.png)<!-- -->
 
 
 The thoery states that "When you plot the number of clusters and the total within cluster sum of squares (WCSS), the optimal number of clusters is when the total WCSS drops radically". Our result shows that when the number of clusters were two, WCSS drops exponentially. It means that in our case the optimal number of clusters are two. 
@@ -722,271 +722,7 @@ The thoery states that "When you plot the number of clusters and the total withi
 pairs(Boston, col = km$cluster)
 ```
 
-![](index_files/figure-html/unnamed-chunk-41-1.png)<!-- -->
+![](index_files/figure-html/unnamed-chunk-40-1.png)<!-- -->
 
-***
-
-
-# Dimensionality Reduction: PCA & MCA
-Created human file/data from the given source and wrangled it enough for further usage. Reading the wrangled data and confirming the dimensionalities match with the given one.
-
-
-
-
-```r
-dim(human_data)
-```
-
-```
-## [1] 155   8
-```
-
-```r
-head(human_data)
-```
-
-```
-##                EduF2M  LaborF2M LifeExp ExpEducation   GNI MotherLife
-## Afghanistan 0.1979866 0.1987421    60.4          9.3  1885        400
-## Albania     0.9306030 0.6854962    77.8         11.8  9943         21
-## Algeria     0.8612903 0.2105263    74.8         14.0 13054         89
-## Arab States 0.7289916 0.3081009    70.6         12.0 15722        155
-## Argentina   0.9774306 0.6333333    76.3         17.9 22050         69
-## Armenia     0.9894737 0.7465565    74.7         12.3  8124         29
-##             AdoBirth parliamentF
-## Afghanistan     86.8        27.6
-## Albania         15.3        20.7
-## Algeria         10.0        25.7
-## Arab States     45.4        14.0
-## Argentina       54.4        36.8
-## Armenia         27.1        10.7
-```
-
-```r
-summary(human_data)
-```
-
-```
-##      EduF2M          LaborF2M         LifeExp       ExpEducation  
-##  Min.   :0.1717   Min.   :0.1857   Min.   :49.00   Min.   : 5.40  
-##  1st Qu.:0.7264   1st Qu.:0.5965   1st Qu.:67.25   1st Qu.:11.25  
-##  Median :0.9359   Median :0.7523   Median :74.00   Median :13.50  
-##  Mean   :0.8524   Mean   :0.7026   Mean   :71.72   Mean   :13.16  
-##  3rd Qu.:0.9957   3rd Qu.:0.8454   3rd Qu.:77.15   3rd Qu.:15.20  
-##  Max.   :1.4967   Max.   :1.0380   Max.   :83.50   Max.   :20.20  
-##       GNI           MotherLife        AdoBirth       parliamentF   
-##  Min.   :   581   Min.   :   1.0   Min.   :  0.60   Min.   : 0.00  
-##  1st Qu.:  4737   1st Qu.:  11.5   1st Qu.: 12.65   1st Qu.:12.50  
-##  Median : 12122   Median :  50.0   Median : 32.80   Median :19.30  
-##  Mean   : 17717   Mean   : 148.0   Mean   : 46.58   Mean   :21.02  
-##  3rd Qu.: 24512   3rd Qu.: 186.5   3rd Qu.: 71.65   3rd Qu.:27.65  
-##  Max.   :123124   Max.   :1100.0   Max.   :204.80   Max.   :57.50
-```
-
-The results show that we have 155 rows and 8 columns now. We have mapped the data with countries as rows for better understanding. 
-
-The data consists of 8 features which are representing Women empowerment in different countries regarding education, work, Expected life and average life with representation in the parliament.
-
-Then performed Prinicple Component Analysis (PCA) without normalizing the data. It is difficult to understand the resutls in graphical format as the features are making no sense.
-
-![](index_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
-
-For a better understanding, we have to standardize the data. 
-
-```r
-human_std <- scale(human_data)
-
-human_pca <- prcomp(human_std)
-
-biplot(human_pca, choices = 1:2, cex=c(0.8,1), col=c("grey40", "deeppink2"))
-```
-
-![](index_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
-
-```r
-s <- summary(human_pca)
-s
-```
-
-```
-## Importance of components:
-##                           PC1    PC2     PC3     PC4     PC5     PC6
-## Standard deviation     2.0755 1.1342 0.88683 0.77944 0.66236 0.51776
-## Proportion of Variance 0.5385 0.1608 0.09831 0.07594 0.05484 0.03351
-## Cumulative Proportion  0.5385 0.6993 0.79758 0.87352 0.92836 0.96187
-##                            PC7     PC8
-## Standard deviation     0.45219 0.31709
-## Proportion of Variance 0.02556 0.01257
-## Cumulative Proportion  0.98743 1.00000
-```
-
-Now the results are creating some understanding as we cans ee that Female to male education ratio, Average life expectancy, Gross National Income and Expected Education is strongly correlated towards to Pricniple Component 1. 
-The results depict that Adolesent birth and Mother's life are correlated to Principle Component 2. 
-two interesting features Female representation in Parliament and Labor ration with male is uncorrelated to Principle Component 2 and note correlated with Principle Component 1 either.
-
-We can see from the plot given below the percentage of first 2 principle components and the correlation of different features with them.
-
-![](index_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
-
- If we look at the sumamries given above and the graph showing below, we can see that the optimal number of Principle Components which are more significant to data are two.
- Screeplot is showing the exponential change in the variance when the Principle Components went from 1 to 2. 
- 
-
-```r
-screeplot(human_pca, npcs = 8, type = "lines", main = "Optimal number of PCs")
-```
-
-![](index_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
-
-Since we are studying component analysis in this week and PCA works for quantitative date or numerical values but if our data is qualitative or categorical, we will use Multiple Correspondence Analysis (MCA). 
-MCA takes multiple categorical variables and seeks to identify associations between levels of those variables.
-We are using "tea" dataset here which has 300 X 36 dimensions. 
-Just for the understanding of the concepts, we are using only 6 features here. 
-
-
-
-
-```r
-# look at the summaries and structure of the data
-dim(tea_time)
-```
-
-```
-## [1] 300   6
-```
-
-```r
-names(tea_time)
-```
-
-```
-## [1] "Tea"   "How"   "how"   "sugar" "where" "lunch"
-```
-
-```r
-summary(tea_time)
-```
-
-```
-##         Tea         How                      how           sugar    
-##  black    : 74   alone:195   tea bag           :170   No.sugar:155  
-##  Earl Grey:193   lemon: 33   tea bag+unpackaged: 94   sugar   :145  
-##  green    : 33   milk : 63   unpackaged        : 36                 
-##                  other:  9                                          
-##                   where           lunch    
-##  chain store         :192   lunch    : 44  
-##  chain store+tea shop: 78   Not.lunch:256  
-##  tea shop            : 30                  
-## 
-```
-
-```r
-str(tea_time)
-```
-
-```
-## 'data.frame':	300 obs. of  6 variables:
-##  $ Tea  : Factor w/ 3 levels "black","Earl Grey",..: 1 1 2 2 2 2 2 1 2 1 ...
-##  $ How  : Factor w/ 4 levels "alone","lemon",..: 1 3 1 1 1 1 1 3 3 1 ...
-##  $ how  : Factor w/ 3 levels "tea bag","tea bag+unpackaged",..: 1 1 1 1 1 1 1 1 2 2 ...
-##  $ sugar: Factor w/ 2 levels "No.sugar","sugar": 2 1 1 2 1 1 1 1 1 1 ...
-##  $ where: Factor w/ 3 levels "chain store",..: 1 1 1 1 1 1 1 1 2 2 ...
-##  $ lunch: Factor w/ 2 levels "lunch","Not.lunch": 2 2 2 2 2 2 2 2 2 2 ...
-```
-
-![](index_files/figure-html/unnamed-chunk-50-1.png)<!-- -->
-
-
-```r
-# summary of the model
-summary(mca)
-```
-
-```
-## 
-## Call:
-## MCA(X = tea_time, graph = FALSE) 
-## 
-## 
-## Eigenvalues
-##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6
-## Variance               0.279   0.261   0.219   0.189   0.177   0.156
-## % of var.             15.238  14.232  11.964  10.333   9.667   8.519
-## Cumulative % of var.  15.238  29.471  41.435  51.768  61.434  69.953
-##                        Dim.7   Dim.8   Dim.9  Dim.10  Dim.11
-## Variance               0.144   0.141   0.117   0.087   0.062
-## % of var.              7.841   7.705   6.392   4.724   3.385
-## Cumulative % of var.  77.794  85.500  91.891  96.615 100.000
-## 
-## Individuals (the 10 first)
-##                       Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3
-## 1                  | -0.298  0.106  0.086 | -0.328  0.137  0.105 | -0.327
-## 2                  | -0.237  0.067  0.036 | -0.136  0.024  0.012 | -0.695
-## 3                  | -0.369  0.162  0.231 | -0.300  0.115  0.153 | -0.202
-## 4                  | -0.530  0.335  0.460 | -0.318  0.129  0.166 |  0.211
-## 5                  | -0.369  0.162  0.231 | -0.300  0.115  0.153 | -0.202
-## 6                  | -0.369  0.162  0.231 | -0.300  0.115  0.153 | -0.202
-## 7                  | -0.369  0.162  0.231 | -0.300  0.115  0.153 | -0.202
-## 8                  | -0.237  0.067  0.036 | -0.136  0.024  0.012 | -0.695
-## 9                  |  0.143  0.024  0.012 |  0.871  0.969  0.435 | -0.067
-## 10                 |  0.476  0.271  0.140 |  0.687  0.604  0.291 | -0.650
-##                       ctr   cos2  
-## 1                   0.163  0.104 |
-## 2                   0.735  0.314 |
-## 3                   0.062  0.069 |
-## 4                   0.068  0.073 |
-## 5                   0.062  0.069 |
-## 6                   0.062  0.069 |
-## 7                   0.062  0.069 |
-## 8                   0.735  0.314 |
-## 9                   0.007  0.003 |
-## 10                  0.643  0.261 |
-## 
-## Categories (the 10 first)
-##                        Dim.1     ctr    cos2  v.test     Dim.2     ctr
-## black              |   0.473   3.288   0.073   4.677 |   0.094   0.139
-## Earl Grey          |  -0.264   2.680   0.126  -6.137 |   0.123   0.626
-## green              |   0.486   1.547   0.029   2.952 |  -0.933   6.111
-## alone              |  -0.018   0.012   0.001  -0.418 |  -0.262   2.841
-## lemon              |   0.669   2.938   0.055   4.068 |   0.531   1.979
-## milk               |  -0.337   1.420   0.030  -3.002 |   0.272   0.990
-## other              |   0.288   0.148   0.003   0.876 |   1.820   6.347
-## tea bag            |  -0.608  12.499   0.483 -12.023 |  -0.351   4.459
-## tea bag+unpackaged |   0.350   2.289   0.056   4.088 |   1.024  20.968
-## unpackaged         |   1.958  27.432   0.523  12.499 |  -1.015   7.898
-##                       cos2  v.test     Dim.3     ctr    cos2  v.test  
-## black                0.003   0.929 |  -1.081  21.888   0.382 -10.692 |
-## Earl Grey            0.027   2.867 |   0.433   9.160   0.338  10.053 |
-## green                0.107  -5.669 |  -0.108   0.098   0.001  -0.659 |
-## alone                0.127  -6.164 |  -0.113   0.627   0.024  -2.655 |
-## lemon                0.035   3.226 |   1.329  14.771   0.218   8.081 |
-## milk                 0.020   2.422 |   0.013   0.003   0.000   0.116 |
-## other                0.102   5.534 |  -2.524  14.526   0.197  -7.676 |
-## tea bag              0.161  -6.941 |  -0.065   0.183   0.006  -1.287 |
-## tea bag+unpackaged   0.478  11.956 |   0.019   0.009   0.000   0.226 |
-## unpackaged           0.141  -6.482 |   0.257   0.602   0.009   1.640 |
-## 
-## Categorical variables (eta2)
-##                      Dim.1 Dim.2 Dim.3  
-## Tea                | 0.126 0.108 0.410 |
-## How                | 0.076 0.190 0.394 |
-## how                | 0.708 0.522 0.010 |
-## sugar              | 0.065 0.001 0.336 |
-## where              | 0.702 0.681 0.055 |
-## lunch              | 0.000 0.064 0.111 |
-```
-
-```r
-# visualize MCA
-plot(mca, invisible=c("ind"), habillage = "quali")
-```
-
-![](index_files/figure-html/unnamed-chunk-51-1.png)<!-- -->
-
-
-The Correspondence Analysis plot shows the cloud of categories of the six variables as projected onto the two principal  axes. The results show that tea bag are related to chain store while unpackages have a correlation with tea shop. Green tea has less correlation for the 2nd component which is on vertical axes similarly Earl Grey has less influence against first component which is on horizontal axes.
-
-
- 
 ***
 
