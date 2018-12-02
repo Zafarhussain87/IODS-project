@@ -1,0 +1,119 @@
+---
+title: "Dimensionality Reduction: PCA"
+output: html_document
+---
+# Dimensionality Reduction: PCA & MCA
+Created human file/data from the given source and wrangled it enough for further usage. Reading the wrangled data and confirming the dimensionalities match with the given one.
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+library("FactoMineR")
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+human_data <- read.csv("C:/Users/Zafar/Documents/GitHub/IODS-project/data/human_.csv", sep = ",", header = TRUE, row.names = 1)
+```
+
+```{r, warning=FALSE,message=FALSE}
+dim(human_data)
+head(human_data)
+summary(human_data)
+```
+
+The results show that we have 155 rows and 8 columns now. We have mapped the data with countries as rows for better understanding. 
+
+The data consists of 8 features which are representing Women empowerment in different countries regarding education, work, Expected life and average life with representation in the parliament.
+
+Then performed Prinicple Component Analysis (PCA) without normalizing the data. It is difficult to understand the resutls in graphical format as the features are making no sense.
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+
+human_pca <- prcomp(human_data)
+
+biplot(human_pca, cex=c(0.5,1), choices = 1:2, col=c("grey40", "deeppink2"))
+
+```
+
+For a better understanding, we have to standardize the data. 
+```{r,warning=FALSE,message=FALSE}
+
+human_std <- scale(human_data)
+
+human_pca <- prcomp(human_std)
+
+biplot(human_pca, choices = 1:2, cex=c(0.8,1), col=c("grey40", "deeppink2"))
+s <- summary(human_pca)
+s
+```
+
+Now the results are creating some understanding as we cans ee that Female to male education ratio, Average life expectancy, Gross National Income and Expected Education is strongly correlated towards to Pricniple Component 1. 
+The results depict that Adolesent birth and Mother's life are correlated to Principle Component 2. 
+two interesting features Female representation in Parliament and Labor ration with male is uncorrelated to Principle Component 2 and note correlated with Principle Component 1 either.
+
+We can see from the plot given below the percentage of first 2 principle components and the correlation of different features with them.
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+pca_pr <- round(100*s$importance[2, ], digits = 1)
+
+pc_lab <- paste0(names(pca_pr), " (", pca_pr, "%)")
+# draw a biplot
+biplot(human_pca,choices=1:2, cex = c(0.8, 1), col = c("grey40", "deeppink2"), xlab = pc_lab[1], ylab = pc_lab[2])
+
+```
+
+ If we look at the sumamries given above and the graph showing below, we can see that the optimal number of Principle Components which are more significant to data are two.
+ Screeplot is showing the exponential change in the variance when the Principle Components went from 1 to 2. 
+ 
+```{r,warning=FALSE,message=FALSE}
+screeplot(human_pca, npcs = 8, type = "lines", main = "Optimal number of PCs")
+```
+
+Since we are studying component analysis in this week and PCA works for quantitative date or numerical values but if our data is qualitative or categorical, we will use Multiple Correspondence Analysis (MCA). 
+MCA takes multiple categorical variables and seeks to identify associations between levels of those variables.
+We are using "tea" dataset here which has 300 X 36 dimensions. 
+Just for the understanding of the concepts, we are using only 6 features here. 
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+library(dplyr)
+library(FactoMineR)
+data("tea")
+keep_columns <- c("Tea", "How", "how", "sugar", "where", "lunch")
+
+tea_time <- dplyr::select(tea, one_of(keep_columns))
+```
+
+```{r,warning=FALSE,message=FALSE}
+
+# look at the summaries and structure of the data
+dim(tea_time)
+names(tea_time)
+summary(tea_time)
+str(tea_time)
+```
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+# visualize the dataset
+gather(tea_time) %>% ggplot(aes(value), geom_bar(), theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))) + facet_wrap("key", scales = "free") 
+
+
+mca <- MCA(tea_time, graph = FALSE)
+```
+
+```{r,warning=FALSE,message=FALSE}
+
+# summary of the model
+summary(mca)
+
+# visualize MCA
+plot(mca, invisible=c("ind"), habillage = "quali")
+
+```
+
+
+The Correspondence Analysis plot shows the cloud of categories of the six variables as projected onto the two principal  axes. The results show that tea bag are related to chain store while unpackages have a correlation with tea shop. Green tea has less correlation for the 2nd component which is on vertical axes similarly Earl Grey has less influence against first component which is on horizontal axes.
+
+
+ 
