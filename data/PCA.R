@@ -1,3 +1,4 @@
+
 library("FactoMineR")
 
 human_data <- read.csv("C:/Users/Zafar/Documents/GitHub/IODS-project/data/human_.csv", sep = ",", header = TRUE, row.names = 1)
@@ -8,7 +9,7 @@ summary(human)
 
 human_pca <- prcomp(human_data)
 
-biplot(human_pca, cex=c(0.8,1), choices = 1:2, col=c("grey40", "deeppink2"))
+biplot(human_pca, cex=c(0.8,1), choices = 1:2, col=c("grey40", "deeppink2"), Width=15, Height=19)
 
 human_std <- scale(human_data)
 summary(human_std)

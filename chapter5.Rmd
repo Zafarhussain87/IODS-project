@@ -11,12 +11,15 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 
+library(GGally)
+
 human_data <- read.csv("C:/Users/Zafar/Documents/GitHub/IODS-project/data/human_.csv", sep = ",", header = TRUE, row.names = 1)
 ```
 
 ```{r, warning=FALSE,message=FALSE}
 dim(human_data)
 head(human_data)
+ggpairs(human_data)
 summary(human_data)
 ```
 
@@ -96,7 +99,7 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 # visualize the dataset
-gather(tea_time) %>% ggplot(aes(value), geom_bar(), theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))) + facet_wrap("key", scales = "free") 
+gather(tea_time) %>% ggplot(aes(value)) + facet_wrap("key", scales = "free") +geom_bar()+theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 8))
 
 
 mca <- MCA(tea_time, graph = FALSE)
