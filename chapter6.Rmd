@@ -1,0 +1,258 @@
+---
+title: "Analysis of longitudinal data"
+output: html_document
+---
+# Analysis of longitudinal data
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+library(tidyr)
+library(lme4)
+library(ggplot2)
+```
+
+```{r, echo=FALSE}
+BPRS <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/BPRS.txt", sep=" ", header=T)
+
+```
+
+I started first with the Brief Psychiatric Rating Scale (BPRS) data. It contains 40 rows and 11 columns. This data is one of several tools that help researchers study people with schizophrenia and related psychotic disorders. 
+```{r}
+dim(BPRS)
+names(BPRS)
+head(BPRS)
+str(BPRS)
+summary(BPRS)
+```
+The summary of the data shows that 40 male subjects were randomly assigned to one of two treatment groups and each subject was rated on the BPRS measured before treatment began (week 0) and then at weekly intervals for eight weeks. The BPRS assesses the level of 18 symptom constructs such as hostility, suspiciousness, hallucinations and grandiosity; each of these is rated from one (not present) to seven (extremely severe).
+
+Now we are factoring two variables 'Treatment' and 'Subject' and converting the data into long form. Then we extracted the week numbers from the data.
+```{r, echo=FALSE}
+BPRS$treatment <- factor(BPRS$treatment)
+BPRS$subject <- factor(BPRS$subject)
+BPRSL <-  BPRS %>% gather(key = weeks, value = bprs, -treatment, -subject)
+
+BPRSL <-  BPRSL %>% mutate(week = as.integer(substr(BPRSL$weeks, 5,5)))
+```
+
+``` {r}
+glimpse(BPRSL)
+```
+
+Now we are plotting the results  after converting the data into long form. 
+```{r}
+ggplot(BPRSL, aes(x = week, y = bprs, linetype = subject, color = subject)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ treatment, labeller = label_both) +
+  theme(legend.position = "right") + 
+  scale_y_continuous(limits = c(min(BPRSL$bprs), max(BPRSL$bprs)))
+
+```
+
+The plot shows BPRS values for all 40 men, differentiating between the treatment groups into which the men have been randomized. This simple graph makes a number of features of the data readily apparent.
+
+An important effect we want to take notice is how the men who have higher BPRS values at the beginning tend to have higher values throughout the study. 
+For this purpose we use stadardised values to observe the tracking from beginning to throughout the period.
+
+```{r}
+BPRSL <- BPRSL %>%
+  group_by(week) %>%
+  mutate(stdbprs = (bprs - mean(bprs))/sd(bprs) ) %>%
+  ungroup()
+```
+
+```{r}
+glimpse(BPRSL)
+```
+
+```{r}
+ggplot(BPRSL, aes(x = week, y = stdbprs, linetype = subject, color=subject)) +
+  geom_line() +
+  scale_linetype_manual(values = rep(1:10, times=4)) +
+  facet_grid(. ~ treatment, labeller = label_both) +
+  scale_y_continuous(name = "standardized bprs")
+```
+Now we are summarizing data with the mean and standard error
+
+```{r, echo=FALSE}
+n <- BPRSL$week %>% unique() %>% length()
+BPRSS <- BPRSL %>%
+  group_by(treatment, week) %>%
+  summarise( mean = mean(bprs), se = sd(bprs)/sqrt(n) ) %>%
+  ungroup()
+```
+
+```{r}
+glimpse(BPRSS)
+```
+
+Now we will look into the post treatment values of the BPRS. The mean of weeks 1 to 8 will be our summary measure.
+```{r}
+ggplot(BPRSS, aes(x = week, y = mean, linetype = treatment, shape = treatment)) +
+  geom_line() +
+  scale_linetype_manual(values = c(1,2)) +
+  geom_point(size=3) +
+  scale_shape_manual(values = c(1,2)) +
+  theme(legend.position = c(0.8,0.8)) +
+  scale_y_continuous(name = "mean(bprs) +/- se(bprs)")
+```
+
+```{r}
+ggplot(BPRSS, aes(x = week, y = mean, linetype = treatment, shape = treatment)) +
+  geom_line() +
+  scale_linetype_manual(values = c(1,2)) +
+  geom_point(size=3) +
+  scale_shape_manual(values = c(1,2)) +
+  geom_errorbar(aes(ymin=mean-se, ymax=mean+se, linetype="1"), width=0.3) +
+  theme(legend.position = c(0.8,0.8)) +
+  scale_y_continuous(name = "mean(bprs) +/- se(bprs)")
+```
+
+If we look at the results, they state that the mean summary measure is more variable in the second treatment group and its distribution in this group is somewhat skew.
+```{r}
+BPRSL8S <- BPRSL %>%
+  filter(week > 0) %>%
+  group_by(treatment, subject) %>%
+  summarise( mean=mean(bprs) ) %>%
+  ungroup()
+```
+
+```{r}
+glimpse(BPRSL8S)
+```
+
+```{r}
+ggplot(BPRSL8S, aes(x = treatment, y = mean)) +
+  geom_boxplot() +
+  stat_summary(fun.y = "mean", geom = "point", shape=23, size=4, fill = "white") +
+  scale_y_continuous(name = "mean(bprs), weeks 1-8")
+```
+
+Now we are creating a new dataset by filtering out the mean BPRS score of the eight weeks when it is over 70. It might bias the conclusions from further comparisons of the groups, so we are removing that subject from the data to better understand the results without any bias.
+
+We are fitting linear model on baseline as week 0 and treatment against the mean of the treatment as targhet.
+```{r}
+BPRSL8S1 <- BPRSL8S %>%filter(mean < 70) 
+t.test(mean ~ treatment, data = BPRSL8S1, var.equal = TRUE)
+
+BPRSL8S2 <- BPRSL8S %>%
+  mutate(baseline = BPRS$week0)
+
+fit <- lm(mean ~ BPRSL8S2$baseline + BPRSL8S2$treatment, data = BPRSL8S2)
+
+anova(fit)
+```
+We can see that the baseline BPRS is strongly related to the BPRS values taken after treatment has begun, but there is still no evidence of a treatment difference even after conditioning on the baseline value
+
+Now in this part of the exercise we are analysing the longitudinal data. In the Longitudinal data, a response variable is measured on each subject on several different occasions poses problems for their analysis because the repeated measurements on each subject are very likely to be correlated rather than independent.
+
+we are using data from a nutrition study conducted in three groups of rats. The groups were put on different diets, and each animal's body weight (grams) was recorded repeatedly (approximately) weekly, except in week seven when two recordings were taken) over a 9-week period. The question of most interest is whether the growth profiles of the three groups differ.
+
+```{r, echo=FALSE}
+RATS <- read.table("https://raw.githubusercontent.com/KimmoVehkalahti/MABS/master/Examples/data/rats.txt", header = TRUE, sep = '\t')
+```
+
+```{r}
+
+names(RATS)
+dim(RATS)
+str(RATS)
+RATS$ID <- factor(RATS$ID)
+RATS$Group <- factor(RATS$Group)
+
+glimpse(RATS)
+```
+To study the diffecences between the variable of interest, that is the weight of the individual rats, and the groups as well as the change of the weight in time, we want to gather the data to a long form.
+
+We are extracting the number of days as an integer variable.
+
+```{r, echo=FALSE}
+RATSL <- RATS %>%
+  gather(key = WD, value = Weight, -ID, -Group) %>%
+  mutate(Time = as.integer(substr(WD,3,5))) 
+```
+
+```{r}
+dim(RATSL)
+glimpse(RATSL)
+
+```
+
+We are just using the simple plot to see how the data looks like in visual form before starting any wrangling of the data to get a better understanding. 
+
+```{r}
+ggplot(RATSL, aes(x = Time, y = Weight, group = ID, color = Group)) +
+  geom_line(aes(linetype = Group)) + 
+  scale_x_continuous(name = "Time (days)", breaks = seq(0,60,10)) + 
+  scale_y_continuous (name = "Weight(grams)") +
+  theme(legend.position = "top")
+```
+
+Now we will fit a multiple linear regression model with weight as response and Time and Group as explanatory variables. We will see the summary of the model then.
+```{r}
+RATS_reg <- lm(Weight ~ Time + Group, data=RATSL)
+summary(RATS_reg)
+
+```
+The summary shows that the model assumes independence of the repeated measures of weight, and this assumption is highly unlikely. So we will move on to consider some more appropriate graphics and appropriate models. 
+To begin the more formal analysis of the rat growth data, we will first fit the random intercept model for the same two explanatory variables: Time and Group. Fitting a random intercept model allows the linear regression fit for each rat to differ in intercept from other rats.
+```{r}
+RATS_ref <- lmer(Weight ~ Time + Group + (1 | ID), data = RATSL, REML = FALSE)
+
+print(RATS_ref)
+```
+Now we will move on to fit the random intercept and random slope model to the rat growth data. Fitting a random intercept and random slope model allows the linear regression fits for each individual to differ in intercept but also in slope. This way it is possible to account for the individual differences in the rats' growth profiles, but also the effect of time.
+
+```{r}
+RATS_ref1 <- lmer(Weight ~ Time + Group + (Time | ID), data = RATSL, REML = FALSE)
+
+
+print(RATS_ref1)
+
+anova(RATS_ref1, RATS_ref)
+```
+
+```{r}
+ 
+RATS_ref2 <- lmer(Weight ~ Time * Group + (Time | ID), data = RATSL, REML = FALSE)
+
+
+summary(RATS_ref2)
+
+anova(RATS_ref2, RATS_ref1)
+
+```
+The above results show that the chi square value is less for model 2. The lesser the chi square value is, the more fitted our model is.
+Here we ar eplotting the fitted model for Time and Weight against the ID as group.
+
+```{r}
+ggplot(RATSL, aes(x = Time, y = Weight, group = ID)) +
+  geom_line(aes(linetype = Group)) +
+  scale_x_continuous(name = "Time (days)", breaks = seq(0, 60, 20)) +
+  scale_y_continuous(name = "Observed weight (grams)") +
+  theme(legend.position = "top")
+```
+
+```{r, echo=FALSE}
+Fitted <- fitted(RATS_ref2)
+
+# Create a new column fitted to RATSL
+RATSL <- RATSL %>%
+  mutate(Fitted)
+```
+
+Now we have created a vector of fitted values and plotting again for those fitted values.
+```{r}
+
+# draw the plot of RATSL
+ggplot(RATSL, aes(x = Time, y = Fitted, group = ID)) +
+  geom_line(aes(linetype = Group)) +
+  scale_x_continuous(name = "Time (days)", breaks = seq(0, 60, 20)) +
+  scale_y_continuous(name = "Fitted weight (grams)") +
+  theme(legend.position = "top")
+```
+With the use of fitted values, the result shows more smooth values, and it indicate a linear increasein weight against time.

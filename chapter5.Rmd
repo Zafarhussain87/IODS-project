@@ -1,6 +1,8 @@
 ---
-title: "Dimensionality Reduction: PCA"
-output: html_document
+title: 'Dimensionality Reduction: PCA'
+output:
+  word_document: default
+  html_document: default
 ---
 # Dimensionality Reduction: PCA & MCA
 Created human file/data from the given source and wrangled it enough for further usage. Reading the wrangled data and confirming the dimensionalities match with the given one.
