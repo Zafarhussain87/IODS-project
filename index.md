@@ -8,7 +8,7 @@ output:
     toc: true
     toc_depth: 6
     fig_caption: true
-    fig_width: 8
+    fig_width: 6
     fig_height: 6
   
 ---
@@ -596,44 +596,44 @@ lda.fit
 ## 
 ## Prior probabilities of groups:
 ##       low   med_low  med_high      high 
-## 0.2648515 0.2326733 0.2524752 0.2500000 
+## 0.2574257 0.2574257 0.2599010 0.2252475 
 ## 
 ## Group means:
-##                  zn      indus        chas        nox          rm
-## low       1.0266834 -0.9359690 -0.12514775 -0.8760101  0.46673456
-## med_low  -0.1170828 -0.2715064 -0.02102480 -0.5389428 -0.09998533
-## med_high -0.3762641  0.2390384  0.11366115  0.4692325  0.03681324
-## high     -0.4872402  1.0171306 -0.07742312  1.0811844 -0.43016079
+##                   zn      indus        chas        nox          rm
+## low       0.94522722 -0.9193222 -0.12090214 -0.8764536  0.46712747
+## med_low  -0.09062667 -0.2627065 -0.04518867 -0.5619641 -0.14362478
+## med_high -0.37943482  0.1832312  0.14012905  0.4082317  0.08446501
+## high     -0.48724019  1.0149946 -0.01274004  1.0316629 -0.39673849
 ##                 age        dis        rad        tax     ptratio
-## low      -0.9237652  0.9452270 -0.6888511 -0.7210135 -0.45345336
-## med_low  -0.3535689  0.2845247 -0.5542505 -0.4520308 -0.03597043
-## med_high  0.3770083 -0.3969163 -0.3941263 -0.2762637 -0.31909704
-## high      0.8287042 -0.8756069  1.6379981  1.5139626  0.78062517
+## low      -0.8427345  0.8930107 -0.7080060 -0.7534670 -0.44092198
+## med_low  -0.4006139  0.3494279 -0.5567175 -0.4731704 -0.03053681
+## med_high  0.4179600 -0.3526501 -0.4240444 -0.3216983 -0.24164702
+## high      0.8023216 -0.8274987  1.6596029  1.5294129  0.80577843
 ##                black       lstat        medv
-## low       0.37233862 -0.77156487  0.55745882
-## med_low   0.30775554 -0.19834042  0.02708554
-## med_high  0.05893302  0.06052754  0.12701542
-## high     -0.72559222  0.88986217 -0.66412795
+## low       0.37795440 -0.76243591  0.52868663
+## med_low   0.31855262 -0.14914904 -0.01590369
+## med_high  0.08651993  0.06644118  0.11323993
+## high     -0.76288812  0.79178558 -0.65678268
 ## 
 ## Coefficients of linear discriminants:
-##                  LD1          LD2         LD3
-## zn       0.079101716  0.703050302 -0.84773476
-## indus    0.001796497 -0.310413878  0.21943318
-## chas    -0.109430793 -0.019147957  0.12986640
-## nox      0.374891726 -0.661119936 -1.50254989
-## rm      -0.092615130 -0.076626666 -0.16452839
-## age      0.267372700 -0.241974993 -0.07967697
-## dis     -0.049837866 -0.204877765 -0.10262162
-## rad      2.971613659  0.921882012 -0.08339687
-## tax      0.021856781  0.013929451  0.59379398
-## ptratio  0.110480111  0.037866577 -0.24036922
-## black   -0.124865378 -0.002149196  0.07865446
-## lstat    0.228682230 -0.198319721  0.13424538
-## medv     0.198271779 -0.331502439 -0.32001798
+##                 LD1         LD2         LD3
+## zn       0.09731396  0.64688475 -0.92744920
+## indus    0.03352986 -0.22743548  0.37655254
+## chas    -0.06531043 -0.01330254  0.11635424
+## nox      0.19398953 -0.87143005 -1.24523983
+## rm      -0.06618870 -0.07667394 -0.15627902
+## age      0.32692495 -0.28700798 -0.35561529
+## dis     -0.08457302 -0.33400331  0.02398213
+## rad      3.48336256  0.84359353 -0.18712223
+## tax     -0.04704854  0.11062803  0.59646129
+## ptratio  0.13987130 -0.01318065 -0.27724987
+## black   -0.15499282  0.01854315  0.12661177
+## lstat    0.20902822 -0.29719569  0.31237564
+## medv     0.18360861 -0.42070378 -0.23554596
 ## 
 ## Proportion of trace:
 ##    LD1    LD2    LD3 
-## 0.9436 0.0427 0.0137
+## 0.9523 0.0351 0.0126
 ```
 
 
@@ -658,10 +658,10 @@ table(correct =correct_classes , predicted = lda.pred$class)
 ```
 ##           predicted
 ## correct    low med_low med_high high
-##   low        8      12        0    0
-##   med_low    7      21        4    0
-##   med_high   0      11       13    0
-##   high       0       0        0   26
+##   low       15       7        1    0
+##   med_low    2      16        4    0
+##   med_high   0       4       16    1
+##   high       0       0        1   35
 ```
 
 Our model shows pretty good results for the given data. The graph and the table are closely predicting the correct result.
@@ -1158,6 +1158,7 @@ ggplot(BPRSL, aes(x = week, y = stdbprs, linetype = subject, color=subject)) +
 ```
 
 ![](index_files/figure-html/unnamed-chunk-61-1.png)<!-- -->
+
 Now we are summarizing data with the mean and standard error
 
 
@@ -1177,6 +1178,7 @@ glimpse(BPRSS)
 ```
 
 Now we will look into the post treatment values of the BPRS. The mean of weeks 1 to 8 will be our summary measure.
+
 
 ```r
 ggplot(BPRSS, aes(x = week, y = mean, linetype = treatment, shape = treatment)) +
@@ -1351,6 +1353,7 @@ glimpse(RATS)
 ## $ WD57  <int> 272, 247, 268, 273, 278, 279, 281, 274, 468, 484, 466, 6...
 ## $ WD64  <int> 278, 245, 269, 275, 280, 281, 284, 278, 478, 496, 472, 6...
 ```
+
 To study the diffecences between the variable of interest, that is the weight of the individual rats, and the groups as well as the change of the weight in time, we want to gather the data to a long form.
 
 We are extracting the number of days as an integer variable.
@@ -1395,6 +1398,7 @@ ggplot(RATSL, aes(x = Time, y = Weight, group = ID, color = Group)) +
 
 Now we will fit a multiple linear regression model with weight as response and Time and Group as explanatory variables. We will see the summary of the model then.
 
+
 ```r
 RATS_reg <- lm(Weight ~ Time + Group, data=RATSL)
 summary(RATS_reg)
@@ -1422,8 +1426,10 @@ summary(RATS_reg)
 ## Multiple R-squared:  0.9283,	Adjusted R-squared:  0.9271 
 ## F-statistic: 742.6 on 3 and 172 DF,  p-value: < 2.2e-16
 ```
+
 The summary shows that the model assumes independence of the repeated measures of weight, and this assumption is highly unlikely. So we will move on to consider some more appropriate graphics and appropriate models. 
 To begin the more formal analysis of the rat growth data, we will first fit the random intercept model for the same two explanatory variables: Time and Group. Fitting a random intercept model allows the linear regression fit for each rat to differ in intercept from other rats.
+
 
 ```r
 RATS_ref <- lmer(Weight ~ Time + Group + (1 | ID), data = RATSL, REML = FALSE)
@@ -1446,6 +1452,7 @@ print(RATS_ref)
 ## (Intercept)         Time       Group2       Group3  
 ##    244.0689       0.5857     220.9886     262.0795
 ```
+
 Now we will move on to fit the random intercept and random slope model to the rat growth data. Fitting a random intercept and random slope model allows the linear regression fits for each individual to differ in intercept but also in slope. This way it is possible to account for the individual differences in the rats' growth profiles, but also the effect of time.
 
 
@@ -1549,6 +1556,7 @@ anova(RATS_ref2, RATS_ref1)
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
+
 The above results show that the chi square value is less for model 2. The lesser the chi square value is, the more fitted our model is.
 Here we ar eplotting the fitted model for Time and Weight against the ID as group.
 
@@ -1567,6 +1575,7 @@ ggplot(RATSL, aes(x = Time, y = Weight, group = ID)) +
 
 Now we have created a vector of fitted values and plotting again for those fitted values.
 
+
 ```r
 # draw the plot of RATSL
 ggplot(RATSL, aes(x = Time, y = Fitted, group = ID)) +
@@ -1577,6 +1586,8 @@ ggplot(RATSL, aes(x = Time, y = Fitted, group = ID)) +
 ```
 
 ![](index_files/figure-html/unnamed-chunk-81-1.png)<!-- -->
+
+
 With the use of fitted values, the result shows more smooth values, and it indicate a linear increasein weight against time.
 ***
 
