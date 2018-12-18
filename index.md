@@ -12,10 +12,16 @@ output:
   
 ---
 
+***
+  
+
 
 I got interested in this course after looking at the course content. The course covers important topic from the field of data science such as regression, logistic regression, clustering, classification, analysis and most importantly it gives an opportunity to learn R. 
 Instead of learning R separately and learning the above mentioned topics in some other course, this course provides the platform to learn and practice at the same time. 
 
+
+  
+***
   
 
 # Regression and Model Validation
@@ -582,44 +588,44 @@ lda.fit
 ## 
 ## Prior probabilities of groups:
 ##       low   med_low  med_high      high 
-## 0.2574257 0.2574257 0.2599010 0.2252475 
+## 0.2500000 0.2648515 0.2376238 0.2475248 
 ## 
 ## Group means:
 ##                   zn      indus        chas        nox          rm
-## low       0.94522722 -0.9193222 -0.12090214 -0.8764536  0.46712747
-## med_low  -0.09062667 -0.2627065 -0.04518867 -0.5619641 -0.14362478
-## med_high -0.37943482  0.1832312  0.14012905  0.4082317  0.08446501
-## high     -0.48724019  1.0149946 -0.01274004  1.0316629 -0.39673849
-##                 age        dis        rad        tax     ptratio
-## low      -0.8427345  0.8930107 -0.7080060 -0.7534670 -0.44092198
-## med_low  -0.4006139  0.3494279 -0.5567175 -0.4731704 -0.03053681
-## med_high  0.4179600 -0.3526501 -0.4240444 -0.3216983 -0.24164702
-## high      0.8023216 -0.8274987  1.6596029  1.5294129  0.80577843
+## low       0.98926160 -0.8768631 -0.07742312 -0.8804437  0.38733440
+## med_low  -0.08852289 -0.2846987 -0.01476176 -0.5420130 -0.12967378
+## med_high -0.39612627  0.1769516  0.17879700  0.3653524  0.02779932
+## high     -0.48724019  1.0171519 -0.03610305  1.0880866 -0.47957040
+##                 age        dis        rad        tax    ptratio
+## low      -0.9105287  0.9472282 -0.6930488 -0.7279269 -0.4020356
+## med_low  -0.3444353  0.3439994 -0.5471711 -0.4682058 -0.0752953
+## med_high  0.3809026 -0.3401292 -0.3920855 -0.3009208 -0.2787369
+## high      0.8240155 -0.8565342  1.6377820  1.5138081  0.7803736
 ##                black       lstat        medv
-## low       0.37795440 -0.76243591  0.52868663
-## med_low   0.31855262 -0.14914904 -0.01590369
-## med_high  0.08651993  0.06644118  0.11323993
-## high     -0.76288812  0.79178558 -0.65678268
+## low       0.37954515 -0.76339898  0.48421027
+## med_low   0.31930619 -0.15339452  0.02071937
+## med_high  0.07710855 -0.01303213  0.11739496
+## high     -0.71757850  0.93195343 -0.69845967
 ## 
 ## Coefficients of linear discriminants:
 ##                 LD1         LD2         LD3
-## zn       0.09731396  0.64688475 -0.92744920
-## indus    0.03352986 -0.22743548  0.37655254
-## chas    -0.06531043 -0.01330254  0.11635424
-## nox      0.19398953 -0.87143005 -1.24523983
-## rm      -0.06618870 -0.07667394 -0.15627902
-## age      0.32692495 -0.28700798 -0.35561529
-## dis     -0.08457302 -0.33400331  0.02398213
-## rad      3.48336256  0.84359353 -0.18712223
-## tax     -0.04704854  0.11062803  0.59646129
-## ptratio  0.13987130 -0.01318065 -0.27724987
-## black   -0.15499282  0.01854315  0.12661177
-## lstat    0.20902822 -0.29719569  0.31237564
-## medv     0.18360861 -0.42070378 -0.23554596
+## zn       0.10040959  0.80882468 -0.85021825
+## indus    0.01170433 -0.14058875  0.19094784
+## chas    -0.07894023 -0.06419805  0.09452893
+## nox      0.44685099 -0.70668242 -1.45961264
+## rm      -0.08754360 -0.07162479 -0.15601748
+## age      0.24883059 -0.29608409 -0.17730222
+## dis     -0.04018181 -0.24320512  0.01729420
+## rad      3.14246198  0.99280328 -0.16013216
+## tax      0.01851177 -0.12000419  0.71529117
+## ptratio  0.12575269  0.05029942 -0.20357875
+## black   -0.11428111  0.02683875  0.13816008
+## lstat    0.22613732 -0.22373475  0.45961562
+## medv     0.19903343 -0.42040116 -0.15513589
 ## 
 ## Proportion of trace:
 ##    LD1    LD2    LD3 
-## 0.9523 0.0351 0.0126
+## 0.9525 0.0360 0.0115
 ```
 
 
@@ -644,10 +650,10 @@ table(correct =correct_classes , predicted = lda.pred$class)
 ```
 ##           predicted
 ## correct    low med_low med_high high
-##   low       15       7        1    0
-##   med_low    2      16        4    0
-##   med_high   0       4       16    1
-##   high       0       0        1   35
+##   low       13      12        1    0
+##   med_low    3      16        0    0
+##   med_high   1       8       20    1
+##   high       0       0        0   27
 ```
 
 Our model shows pretty good results for the given data. The graph and the table are closely predicting the correct result.
