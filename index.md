@@ -1,5 +1,5 @@
 ---
-title: "IODS course project"
+title: "Open Data Science Course Project"
 author: "Zafar Hussain"
 output:
    html_document:
@@ -17,16 +17,8 @@ output:
   
 
 
-# About the project
-
-*Write a short description about the course and add a link to your github repository here. This is an R markdown (.Rmd) file so you can use R markdown syntax. See the 'Useful links' page in the mooc area (chapter 1) for instructions.*
-
-## Course:
 I got interested in this course after looking at the course content. The course covers important topic from the field of data science such as regression, logistic regression, clustering, classification, analysis and most importantly it gives an opportunity to learn R. 
 Instead of learning R separately and learning the above mentioned topics in some other course, this course provides the platform to learn and practice at the same time. 
-
-## My Repository:
-https://github.com/Zafarhussain87/IODS-project
 
   
 ***
