@@ -1,6 +1,5 @@
 ---
 title: "Open Data Science Course Project"
-author: "Zafar Hussain"
 output:
    html_document:
     keep_md: true
@@ -13,15 +12,10 @@ output:
   
 ---
 
-***
-  
-
 
 I got interested in this course after looking at the course content. The course covers important topic from the field of data science such as regression, logistic regression, clustering, classification, analysis and most importantly it gives an opportunity to learn R. 
 Instead of learning R separately and learning the above mentioned topics in some other course, this course provides the platform to learn and practice at the same time. 
 
-  
-***
   
 
 # Regression and Model Validation
